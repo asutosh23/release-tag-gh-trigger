@@ -1,9 +1,7 @@
 name: Publish in GitHub Package Registry
 
 on:
-  push:
-    tags:
-      - '*'
+  push: main
 
 jobs:
 
@@ -19,6 +17,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
+          
+      - name: Show Triggered Tag
+        run: echo "Triggered tag: ${{ github.ref }}"
+      
+      - name: Show Commit Details
+        run: |
+          git log -1 --pretty=format:"Commit by %an <%ae>%n%n%s%n%n%b"
 
       - name: Install dependencies
         run: npm install
