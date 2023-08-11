@@ -1,7 +1,9 @@
 name: Publish in GitHub Package Registry
 
 on:
-  push: main
+  push: 
+    branches:
+      main
 
 jobs:
 
