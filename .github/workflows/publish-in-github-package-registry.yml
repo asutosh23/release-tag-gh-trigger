@@ -5,21 +5,30 @@ on:
 
 jobs:
 
-
+  on-push-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: It ran because of the commit to push
+        run: |
+          echo "It ran because of the commit to push"
+          
   publish-gpr:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Git checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set Node.js Version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 14
-          
+
       - name: Show Triggered Tag
-        run: echo "Triggered tag: ${{ github.ref }}"
+        run: |
+          echo "Triggered tag: ${{ github.ref }}"
       
       - name: Show Commit Details
         run: |
@@ -30,4 +39,3 @@ jobs:
 
       - name: Build package files
         run: npm run build
-
